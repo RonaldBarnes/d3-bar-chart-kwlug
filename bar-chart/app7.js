@@ -15,7 +15,7 @@ console.log(
 	"© Ron@RonaldBarnes.ca 2022 \n",
 	"--------------------\n"
 	);
-let subject = "Data \"Constancy\"";
+let subject = "Removing Data";
 
 
 
@@ -352,11 +352,7 @@ function updateGraph()
 
 	let bars = d3.select("svg")
 		.selectAll("rect")
-		.data(barData,
-			// Add a "key function":
-			// Return array of months as keys binding array elements to bars:
-			function(m) { return m.month }
-			)
+		.data(barData)
 		;
 
 	bars

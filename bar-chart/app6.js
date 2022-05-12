@@ -15,7 +15,7 @@ console.log(
 	"© Ron@RonaldBarnes.ca 2022 \n",
 	"--------------------\n"
 	);
-let subject = "Removing Data";
+let subject = "Data \"Constancy\"";
 
 
 
@@ -352,7 +352,11 @@ function updateGraph()
 
 	let bars = d3.select("svg")
 		.selectAll("rect")
-		.data(barData)
+		.data(barData,
+			// Add a "key function":
+			// Return array of months as keys binding array elements to bars:
+			function(m) { return m.month }
+			)
 		;
 
 	bars
@@ -375,13 +379,6 @@ function updateGraph()
 				.attr("id", (d) => (d.month))
 		;
 
-	// The ONLY change from last file: removes our bars when no data:
-	bars
-		// When elements no longer have data to bind to them, then .exit()
-		.exit()
-			// We get rid of those elements from the DOM:
-			.remove()
-		;
 
 	// Update our padding indicator box upon resize:
 	paddingBox();
