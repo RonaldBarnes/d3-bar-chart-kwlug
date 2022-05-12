@@ -11,9 +11,9 @@
 // https://www.d3indepth.com/transitions/
 
 console.log(
-	"--------------------\n",
-	"© Ron@RonaldBarnes.ca 2022 \n",
-	"--------------------\n"
+	"--------------------------\n" +
+	"© Ron@RonaldBarnes.ca 2022\n" +
+	"--------------------------\n"
 	);
 let subject = "More Scales: Colour";
 
