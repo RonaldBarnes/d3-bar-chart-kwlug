@@ -186,7 +186,7 @@ function updateScales()
 	{
 	// Xaxis scale:
 	xScale	// = d3.scaleLinear()
-		// domain is number of months in a year, as indices:
+		// domain is number of months in a year, as month numbers:
 		.domain([ 1,12 ])
 		// Data will be plotted from left padding across width
 		// with a bit shaved off so outer bar edges touch padding boundaries:
