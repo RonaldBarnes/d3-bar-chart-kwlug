@@ -13,3 +13,4 @@ pages (each loads a slightly enhanced JS file).
 
 See a "live" version at [my website](http://bclug.ca:8008/d3/kwlug/bar-chart/).
 
+![screenshot](http://bclug.ca:8008/d3/kwlug/images/KWLUG-bar-chart-2022-05-15.gif)
