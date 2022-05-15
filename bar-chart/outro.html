@@ -6,56 +6,96 @@
   <link rel="stylesheet" href="style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
 	<!-- A navbar for paging through demonstration: -->
 	<div id="nav">
 		<div id="prev"><a href="page10.html">Page 10</a></div>
-		<div id="current">Intro</div>
-		<div id="next"><a href="page1.html">Page 1</a></div>
+		<div id="current">Outro</div>
+		<div id="next"><a href="index.html">Intro</a></div>
 	</div>
+
 	<div style="margin: 1rem;">
-		<h1>Presentation Slideshow</h1>
-		Follow the
-		<a href="https://nextcloud.ronaldbarnes.ca/s/zr364LZEWyZcepd"
-			target="_new">slide show</a> in a new window.
-		<hr />
-		<h3>Binding data to HTML / SVG elements in D3</h3>
+		<h2>Binding data to HTML / SVG elements in D3</h2>
 		<p>
 			Interactive demonstration of the D3.js General Update Pattern:
-			<a href="https://www.d3indepth.com/v4/enterexit/">
-				.enter, .update, .exit
+			<a href="https://www.d3indepth.com/v4/enterexit/" target="_new">
+				.enter, update, .exit
 			</a>
 		</p>
+
+		<hr />
 		<p>
-			<a href="https://d3js.org/">D3 Intro</a>
+			Per the <a href="https://d3js.org/" target="_new">D3 Intro</a> page:
 			A common pattern is to break the initial selection into three parts: 
 			the updating nodes to modify, then entering nodes to add, 
 			and the exiting nodes to remove. 
 		</p>
 		<p>
-			By modifying only the attributes that actually change,
+			By <b>modifying only the attributes that actually change</b>,
 			D3 reduces overhead and allows greater graphical complexity at 
 			high frame rates. D3 also allows sequencing of complex transitions 
 			via events. And, you can still use CSS3 transitions; 
 			D3 does not replace the browser’s toolbox, but exposes it in a way 
 			that is easier to use. 
 		</p>
+
+		<h2>Mapping</h2>
+		<p>
+			Nearly 100
+			<a href="https://observablehq.com/@d3/world-map-svg" target="_new">
+			map projections</a>, featuring some facinating views of Earth.
+		</p>
+
 		<hr />
 		<p>
-			Nearly 100 <a href="https://observablehq.com/@d3/world-map">map
-			projections</a>.
-			<a href="https://bl.ocks.org/mbostock/4183330">World Tour</a> is worth
-			viewing.
+			<!-- a href="https://bl.ocks.org/mbostock/4183330" target="_new" -->
+			<a href="https://observablehq.com/@d3/world-tour" target="_new">
+			World Tour</a> is mesmerizing and hypnotic viewing, featuring an
+			animated geography lesson, featuring polygonal centroids:
+			<h4>World Tour</h4>
+			This animation uses d3.geoInterpolate to interpolate a path along
+			great arcs, and spherical linear interpolation to rotate the
+			orthographic projection.
 		</p>
-		<p>
-			Full <a href="https://observablehq.com/@d3/gallery">D3 gallery</a>
-		</p>
+
 		<hr />
-		<h3>Transistions</h3>
 		<p>
-			<a href="https://www.d3indepth.com/transitions/">
-				Intro to transitions
+			Full <a href="https://observablehq.com/@d3/gallery" target="_new">
+			D3 gallery</a> for some truly mind-boggling projects.
+		</p>
+
+		<hr />
+		<h2>Transistions</h2>
+		<p>
+			Intro to 
+			<a href="https://www.d3indepth.com/transitions/" target="_new">
+				interactive transitions</a>
+			with code examples; note the "tween" interpolation functions
+			about ⅔ of the way down the page.
 			</a>
+		</p>
+
+		<h2>Fisheye Distortion</h2>
+		<p>
+			The possibilities are endless with D3.js.  Enhance tightly grouped data
+			with a <a href="https://bost.ocks.org/mike/fisheye/" target="_new">
+			Fisheye Effect</a>, or a Cartesian Distortion
+		</p>
+		<h2>D3.js v7</h2>
+		<p>
+			This presentation was developed using D3.js version 4. At the time of
+			this writing, v7.4.4 is "Latest".
+		</p>
+		<p>
+			<a href="https://en.wikipedia.org/wiki/Mike_Bostock" target="_new">
+				Mike Bostock</a>
+			is a founding developer of
+			<a href="https://en.wikipedia.org/wiki/D3.js" target="_new">
+				D3</a>
+			He received his Ph.D in compSci at Stanford. He was employed by NY Times
+			where he lead data visualization projects and shared the Gerald Loeb
+			Award for Images / Visuals in 2013, 2014, and 2015.
 		</p>
 	</div>
 </body>
