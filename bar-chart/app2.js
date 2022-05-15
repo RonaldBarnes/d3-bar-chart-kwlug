@@ -84,11 +84,9 @@ d3.queue()
 			}	// end formatter function
 		)	// end defer
 */
-	.await(function(error, birthDataJSON) {
+	.await(function(error, birthData) {
 		if (error) throw error;
-		// assign data to global scoped variable:
-		birthData = birthDataJSON;
-		console.log("d3.queue.await() JSON birthData:", birthData);
+
 		// Display on screen proof of having read data:
 		d3.select("svg")
 			.append("text")
@@ -98,9 +96,11 @@ d3.queue()
 			.attr("text-anchor", "middle")
 			;
 
-		// Set globals
+
+		// Assign data to global scoped variables:
 		minYear = d3.min( birthData, d => (d.year) );
 		maxYear = d3.max( birthData, d => (d.year) );
+
 		// Add data to our input selector:
 		d3.select("#inputYear")
 			.property("min", minYear)

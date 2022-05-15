@@ -87,24 +87,13 @@ d3.queue()
 			}	// end formatter function
 		)	// end defer
 */
-	.await(function(error, birthDataJSON) {
+	.await(function(error, birthData) {
 		if (error) throw error;
-		// assign data to global scoped variable:
-		birthData = birthDataJSON;
-/*
-		console.log("d3.queue.await() JSON birthData:", birthData);
-		// Display on screen proof of having read data:
-		d3.select("svg")
-			.append("text")
-			.text(`Read in ${birthData.length} data objects`)
-			.attr("x", padding.left + width / 2)
-			.attr("y", height / 2)
-			.attr("text-anchor", "middle")
-			;
-*/
-		// Set globals
+
+		// Assign data to global scoped variables:
 		minYear = d3.min( birthData, d => (d.year) );
 		maxYear = d3.max( birthData, d => (d.year) );
+
 		// Add data to our input selector:
 		d3.select("#inputYear")
 			.property("min", minYear)
@@ -236,9 +225,9 @@ function updateAxes()
 			.attr("fill", "red")
 			.attr("text-anchor", "end")
 			.style("font-size", "1rem")
-			// Convert data element's number to month's name:
-			.text( (d) =>  (months.find( m => m.num === d).name ))
-//			.transition().duration(1000).delay( (d) => (d*100))
+			// Convert data element's number to month's name by looking up
+			// d (.range([1,12])) in months array:
+			.text( d =>  (months.find( m => (m.num === d)).name ))
 			.attr("transform", "rotate(-45)")
 		;
 

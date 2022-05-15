@@ -89,24 +89,13 @@ d3.queue()
 			}	// end formatter function
 		)	// end defer
 */
-	.await(function(error, birthDataJSON) {
+	.await(function(error, birthData) {
 		if (error) throw error;
-		// assign data to global scoped variable:
-		birthData = birthDataJSON;
-/*
-		console.log("d3.queue.await() JSON birthData:", birthData);
-		// Display on screen proof of having read data:
-		d3.select("svg")
-			.append("text")
-			.text(`Read in ${birthData.length} data objects`)
-			.attr("x", padding.left + width / 2)
-			.attr("y", height / 2)
-			.attr("text-anchor", "middle")
-			;
-*/
-		// Set globals
+
+		// Assign data to global scoped variables:
 		minYear = d3.min( birthData, d => (d.year) );
 		maxYear = d3.max( birthData, d => (d.year) );
+
 		// Add data to our input selector:
 		d3.select("#inputYear")
 			.property("min", minYear)
@@ -188,7 +177,7 @@ function updateScales()
 	{
 	// Xaxis scale:
 	xScale	// = d3.scaleLinear()
-		// domain is number of months in a year, as month numbers:
+		// domain is number of months in a year, as indices:
 		.domain([ 1,12 ])
 		// Data will be plotted from left padding across width
 		// with a bit shaved off so outer bar edges touch padding boundaries:
@@ -250,12 +239,9 @@ function updateAxes()
 			.attr("stroke", "blue")
 			.attr("fill", "red")
 			.attr("text-anchor", "end")
-			// Convert data element's number to month's name:
-			.text( (d) => {
-				let name = months.find( m => (m.num === d)).name;
-				// console.log("X AXIS d:", d, "name:", name);
-				return name;
-				})
+			// Convert data element's number to month's name by looking up
+			// d (.range([1,12])) in months array:
+			.text( d =>  (months.find( m => (m.num === d)).name ))
 			.transition().duration(1000).delay( (d) => (d*100 + 1000))
 			.attr("transform", "rotate(-45)")
 		;
@@ -617,7 +603,7 @@ function updateNav()
 	d3.select("#next")
 		.html( currPageNum < 10
 			? `<a href="page${currPageNum + 1}.html">Next</a>`
-			: `<a href="index.html">Introduction</a>`
+			: `<a href="outrt.html">Further Reading</a>`
 			)
 		;
 	}
