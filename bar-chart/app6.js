@@ -87,10 +87,11 @@ d3.queue()
 			}	// end formatter function
 		)	// end defer
 */
-	.await(function(error, birthData) {
+	.await(function(error, birthDataJSON) {
 		if (error) throw error;
 
 		// Assign data to global scoped variables:
+		birthData = birthDataJSON;
 		minYear = d3.min( birthData, d => (d.year) );
 		maxYear = d3.max( birthData, d => (d.year) );
 
