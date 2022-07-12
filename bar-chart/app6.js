@@ -238,6 +238,7 @@ function updateAxes()
 	// Update Y Axis (tickSize changes when screen resizes):
 	yAxis
 		.tickSizeInner( -1 * width)
+		.tickSizeOuter(0)
 		;
 	d3.select("#yaxis")
 		// append a group as collection of axis elements:
@@ -353,16 +354,16 @@ function updateGraph()
 				.on("touchstart", tooltipShow)
 				.on("mouseout", tooltipHide)
 				.on("touchend", tooltipHide)
-			.merge(bars)
-				.attr("width", barWidth)
-				// Adjust the x pos left by ½ barWidth to centre-align at X axis ticks:
-				.attr("x", (data, index) => (xScale(
-					months.find( m => (m.name === data.month)).num
-					) - barWidth / 2))
-				// Starts mid-way, ends at bottom (at x axis):
-				.attr("y", (d) => (yScale(d.births) + padding.top))
-				.attr("height", (d) => (height - yScale(d.births)))
-				.attr("id", (d) => (d.month))
+		.merge(bars)
+			.attr("width", barWidth)
+			// Adjust the x pos left by ½ barWidth to centre-align at X axis ticks:
+			.attr("x", (data, index) => (xScale(
+				months.find( m => (m.name === data.month)).num
+				) - barWidth / 2))
+			// Starts mid-way, ends at bottom (at x axis):
+			.attr("y", (d) => (yScale(d.births) + padding.top))
+			.attr("height", (d) => (height - yScale(d.births)))
+			.attr("id", (d) => (d.month))
 		;
 
 

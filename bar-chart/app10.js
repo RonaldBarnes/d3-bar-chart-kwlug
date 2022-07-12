@@ -242,8 +242,10 @@ function updateAxes()
 			.attr("text-anchor", "end")
 			// Convert data element's number to month's name by looking up
 			// d (.range([1,12])) in months array:
-			.text( d =>  (months.find( m => (m.num === d)).name ))
-			.transition().duration(1000).delay( (d) => (d*100 + 1000))
+			.text( (d,i) =>  (months[i].name ))
+			.transition()
+			.duration(1000)
+			.delay( (d) => (d*100 + 1000))
 			.attr("transform", "rotate(-45)")
 		;
 
@@ -251,6 +253,7 @@ function updateAxes()
 	// Update Y Axis (tickSize changes when screen resizes):
 	yAxis
 		.tickSizeInner( -1 * width)
+		.tickSizeOuter(0)
 		;
 	d3.select("#yaxis")
 		.style("font-size", "1rem")
@@ -383,10 +386,11 @@ function updateGraph()
 				// generate values below zero when close to X axis:
 				// .ease(d3.easeBackInOut)
 				.attr("width", barWidth)
-				// Adjust the x pos left by ½ barWidth to centre-align at X axis ticks:
 				.attr("x", (d) => (xScale(
-					months.find( m => (m.name === d.month)).num
-					 ) - barWidth / 2))
+					// Convert month name in JSON data to number:
+					months.find( m => (m.name === d.month)).num)
+					// Adjust the x pos left by ½ barWidth to centre-align at axis ticks:
+					- barWidth / 2))
 				// Starts mid-way, ends at bottom (at x axis):
 				.attr("y", (d) => (yScale(d.births) + padding.top))
 				.attr("height", (d) => (height - yScale(d.births)))

@@ -215,11 +215,7 @@ function updateAxes()
 
 	// Update xAxis:
 	d3.select("#xaxis")
-		// Align with centre of first bar:
-		// Why is transform required, and attr(x,y) doesn't work?
 		.attr("transform", `translate(0, ${padding.top + height})`)
-		//		.attr("x", padding.left + barWidth / 2)
-		//		.attr("y", padding.top + height)
 		.call(xAxis)
 			.selectAll("text")
 			.attr("stroke", "blue")
@@ -228,7 +224,7 @@ function updateAxes()
 			.style("font-size", "1rem")
 			// Convert data element's number to month's name by looking up
 			// d (.range([1,12])) in months array:
-			.text( d =>  (months.find( m => (m.num === d)).name ))
+			.text( (d,i) =>  (months[i].name ))
 			.attr("transform", "rotate(-45)")
 		;
 
@@ -236,6 +232,7 @@ function updateAxes()
 	// Update Y Axis (tickSize changes when screen resizes):
 	yAxis
 		.tickSizeInner( -1 * width)
+		.tickSizeOuter(0)
 		;
 	d3.select("#yaxis")
 		// append a group as collection of axis elements:

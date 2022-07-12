@@ -249,6 +249,7 @@ function updateAxes()
 	// Update Y Axis (tickSize changes when screen resizes):
 	yAxis
 		.tickSizeInner( -1 * width)
+		.tickSizeOuter(0)
 		;
 	d3.select("#yaxis")
 		// append a group as collection of axis elements:
@@ -320,9 +321,7 @@ function updateGraph()
 	//
 	width = getPageWidth();
 	height = getPageHeight();
-d3.select("#pageSize")
-	.text(`${width}x${height}`)
-	;
+
 	year = +d3.select("#inputYear").property("value")
 	barWidth = (width - padding.left - padding.right) / numBars - barPadding;
 	barWidth = width / numBars - barPadding;
@@ -380,10 +379,7 @@ d3.select("#pageSize")
 				// Starts mid-way, ends at bottom (at x axis):
 				.attr("y", (d) => (yScale(d.births) + padding.top))
 				.attr("height", (d) => (height - yScale(d.births)))
-				.attr("fill", (d,i) => ( colourScaleX(
-						months.find( m => (m.name === d.month)).num
-						))
-					)
+				.attr("fill", (d,i) => ( colourScaleX(i + 1) ))
 //				.attr("fill", (d,i) => ( colourScaleY(d.births) ))
 				.attr("id", (d) => (d.month))
 				.attr("stroke", "black")
@@ -395,7 +391,9 @@ d3.select("#pageSize")
 	bars
 		// When elements no longer have data to bind to them, then .exit()
 		.exit()
-			.transition().duration(1000).delay( (d,i) => (i * 50))
+			.transition()
+			.duration(1000)
+			.delay( (d,i) => (i * 50))
 			.attr("width", 0)
 			// We get rid of those elements from the DOM:
 			.remove()

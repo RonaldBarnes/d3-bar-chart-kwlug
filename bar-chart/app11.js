@@ -15,7 +15,7 @@ console.log(
 	"© Ron@RonaldBarnes.ca 2022\n" +
 	"--------------------------\n"
 	);
-let subject = "More Scales: Colour";
+let subject = "Transition Everything";
 
 
 
@@ -228,8 +228,10 @@ function updateAxes()
 
 	// Update xAxis:
 	d3.select("#xaxis")
+		.style("font-size", "1rem")
 		// Align with centre of first bar:
 		// Why is transform required, and attr(x,y) doesn't work?
+		.transition().duration(1000)
 		.attr("transform", `translate(0, ${padding.top + height})`)
 		//		.attr("x", padding.left + barWidth / 2)
 		//		.attr("y", padding.top + height)
@@ -238,10 +240,10 @@ function updateAxes()
 			.attr("stroke", "blue")
 			.attr("fill", "red")
 			.attr("text-anchor", "end")
-			.style("font-size", "1rem")
 			// Convert data element's number to month's name by looking up
 			// d (.range([1,12])) in months array:
-			.text( d =>  (months.find( m => (m.num === d)).name ))
+			.text( (d,i) =>  (months[i].name ))
+			.transition().duration(1000).delay( (d) => (d*100 + 1000))
 			.attr("transform", "rotate(-45)")
 		;
 
@@ -252,7 +254,8 @@ function updateAxes()
 		.tickSizeOuter(0)
 		;
 	d3.select("#yaxis")
-		// append a group as collection of axis elements:
+		.style("font-size", "1rem")
+		.transition().duration(1000)
 		.attr("transform", `translate(${padding.left}, ${padding.top})`)
 		.call(yAxis)
 			.attr("stroke-dasharray", "10 5")
@@ -273,18 +276,21 @@ function updateAxes()
 d3.select("svg")
 	.append("text")
 		.attr("id", "xaxis-label")
+		.style("font-size", "1.75rem")
 		.text("Month")
 	;
 // Append Y axis Label:
 d3.select("svg")
 	.append("text")
 		.attr("id", "yaxis-label")
+		.style("font-size", "1.75rem")
 		.text("Births")
 	;
 
 function updateAxesLabels()
 	{
 	d3.select("#xaxis-label")
+		.transition().duration(1000)
 		.attr("x", padding.left + width / 2)
 		.attr("y", padding.top + height + padding.bottom)
 		// Move baseline UP slightly (delta-y negative value):
@@ -294,6 +300,7 @@ function updateAxesLabels()
 	;
 
 	d3.select("#yaxis-label")
+		.transition().duration(1000)
 		.attr("transform", "rotate(-90)")
 		// Now coordinates are rotated 90°, x & y are swapped:
 		.attr("x", -1 * height / 2 - padding.top)
@@ -336,6 +343,7 @@ function updateGraph()
 	// Update title to reflect updated year:
 	d3.select("#title")
 		.text(`Births for year ${year}`)
+		.transition().duration(1000)
 		.attr("x", padding.left + width / 2)
 		;
 
@@ -346,14 +354,17 @@ function updateGraph()
 
 
 	// Filter out data not from year chosen in input range selector:
-	let barData = birthData.filter( (y) => (y.year === year) );
+	let barData = birthData.filter( (y) => (y.year === year)
+		);
 
 	let bars = d3.select("svg")
 		.selectAll("rect")
 		// And, add a "key":
 		// Return array of months as keys binding array elements to bars;
 		// if a month's data is missing, leave blank, do not shift into gap:
-		.data(barData, (d) => (d.month))
+		.data(birthData.filter( d => (d.year === year)),
+			function(d) { return d.month }
+			)
 		;
 
 	bars
@@ -365,18 +376,28 @@ function updateGraph()
 				.on("mouseout", tooltipHide)
 				.on("touchend", tooltipHide)
 			.merge(bars)
+				.transition()
+				.duration(1000)
+				.delay( (d,i) => (i * 50))
+				// .ease(d3.easeBounceInOut)
+				// easeBackInOut is beautiful, BUT causes errors because it tries to
+				// generate values below zero when close to X axis:
+				// .ease(d3.easeBackInOut)
 				.attr("width", barWidth)
-				// Adjust the x pos left by ½ barWidth to centre-align at X axis ticks:
-				.attr("x", (data, index) => (xScale(
-					months.find( m => (m.name === data.month)).num
-					) - barWidth / 2))
+				// Convert month name in JSON data to number:
+				.attr("x", (d) => (xScale(
+					months.find( m => (m.name === d.month)).num
+					// Adjust the x pos left by ½ barWidth to centre-align at axis ticks:
+					 ) - barWidth / 2))
 				// Starts mid-way, ends at bottom (at x axis):
 				.attr("y", (d) => (yScale(d.births) + padding.top))
 				.attr("height", (d) => (height - yScale(d.births)))
+				/*
 				.attr("fill", (d,i) => ( colourScaleX(
 					months.find( m => (m.name === d.month)).num
-				) ) )
-				// .attr("fill", (d,i) => ( colourScaleY(d.births) ))
+					) ))
+				*/
+				.attr("fill", (d,i) => ( colourScaleY(d.births) ))
 				.attr("id", (d) => (d.month))
 				.attr("stroke", "black")
 		;
@@ -385,6 +406,8 @@ function updateGraph()
 	bars
 		// When elements no longer have data to bind to them, then .exit()
 		.exit()
+			.transition().duration(1000).delay( (d,i) => (i * 50))
+			.attr("width", 0)
 			// We get rid of those elements from the DOM:
 			.remove()
 		;
@@ -581,6 +604,9 @@ function updateNav()
 		;
 	// Next page:
 	d3.select("#next")
-		.html( `<a href="page${currPageNum + 1}.html">Next</a>`)
+		.html( currPageNum < 10
+			? `<a href="page${currPageNum + 1}.html">Next</a>`
+			: `<a href="outro.html">Further Reading</a>`
+			)
 		;
 	}
